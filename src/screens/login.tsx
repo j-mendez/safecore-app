@@ -2,54 +2,55 @@ import React from 'react';
 import {
   SafeAreaView,
   ScrollView,
-  StatusBar,
   useColorScheme,
   View,
-  Text,
   Button,
+  TouchableOpacity,
+  Text,
 } from 'react-native';
-
 import {Header} from 'react-native/Libraries/NewAppScreen';
-import {RouteProp} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
-import type {RootStackParamList} from '../types/navigation';
+import {Card} from '../components';
 import {backgroundColor} from '../styles/background';
+import type {RootStackParamList} from '../types/navigation';
 
-type ProfileScreenNavigationProp = StackNavigationProp<
+type LoginScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
-  'Profile'
+  'Home'
 >;
 
-type ProfileScreenRouteProp = RouteProp<RootStackParamList, 'Profile'>;
-
-type Props = {
-  navigation: ProfileScreenNavigationProp;
-  route: ProfileScreenRouteProp;
+export type Props = {
+  navigation: LoginScreenNavigationProp;
 };
 
-const ProfileScreen: React.FC<Props> = ({navigation, route}) => {
+const LoginScreen: React.FC<Props> = ({navigation}) => {
   const isDarkMode = useColorScheme() === 'dark';
-
   const backgroundStyle = {
     backgroundColor: backgroundColor(isDarkMode),
+    flex: 1,
   };
 
   return (
     <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={!isDarkMode ? 'light-content' : 'dark-content'} />
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         style={backgroundStyle}>
         <Header />
+        <Text>Login</Text>
+
         <View
           style={{
             backgroundColor: backgroundColor(isDarkMode),
           }}>
-          <Text>This is {route.params.name}'s profile</Text>
           <Button
-            title="Go Back"
-            accessibilityLabel="navigate to Jane's profiles"
-            onPress={() => navigation.pop()}
+            title="Login"
+            accessibilityLabel="login to application"
+            onPress={() => navigation.navigate('Home', {name: 'Jane'})}
+          />
+          <Button
+            title="Register"
+            accessibilityLabel="Register account and login"
+            onPress={() => navigation.navigate('Register', {name: 'Jane'})}
           />
         </View>
       </ScrollView>
@@ -57,4 +58,4 @@ const ProfileScreen: React.FC<Props> = ({navigation, route}) => {
   );
 };
 
-export {ProfileScreen};
+export {LoginScreen};
