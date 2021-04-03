@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
   sectionContainer: {
     padding: 12,
     backgroundColor: '#ccc',
+    borderRadius: 3,
   },
   innerContainer: {},
   sectionTitle: {

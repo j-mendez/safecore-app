@@ -1,15 +1,7 @@
 import React from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  useColorScheme,
-  View,
-  Button,
-  TouchableOpacity,
-} from 'react-native';
-import {Header} from 'react-native/Libraries/NewAppScreen';
+import {SafeAreaView, useColorScheme, Button} from 'react-native';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {Card} from '../components';
+import {Card, Feed} from '../components';
 import {backgroundColor} from '../styles/background';
 import type {RootStackParamList} from '../types/navigation';
 
@@ -26,27 +18,30 @@ const HomeScreen: React.FC<Props> = ({navigation}) => {
     flex: 1,
   };
 
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <Button
+          onPress={() => navigation.navigate('Profile', {name: 'Me'})}
+          title="Profile"
+          accessibilityLabel="navigate to My profile"
+        />
+      ),
+    });
+  }, [navigation]);
+
   return (
     <SafeAreaView style={backgroundStyle}>
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <TouchableOpacity
-          onPress={() => navigation.navigate('Room', {name: 'Some Secret'})}>
-          <Card title={'Encrypted Room'}>0 Users</Card>
-        </TouchableOpacity>
-        <View
-          style={{
-            backgroundColor: backgroundColor(isDarkMode),
-          }}>
-          <Button
-            title="Go to Jane's profile"
-            accessibilityLabel="navigate to Jane's profiles"
-            onPress={() => navigation.navigate('Profile', {name: 'Jane'})}
-          />
-        </View>
-      </ScrollView>
+      <Feed
+        renderItem={({item}) => (
+          <Card title={item.title}>{item.description}</Card>
+        )}
+      />
+      <Button
+        title="Create Room"
+        accessibilityLabel="Create a Room"
+        onPress={() => navigation.navigate('Room', {name: 'Me'})}
+      />
     </SafeAreaView>
   );
 };

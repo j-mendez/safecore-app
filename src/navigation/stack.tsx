@@ -1,4 +1,5 @@
 import React from 'react';
+import {Button} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {
@@ -15,13 +16,16 @@ const Stack = createStackNavigator<RootStackParamList>();
 export const MyStack: React.FC = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator initialRouteName="Login">
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Register" component={RegisterScreen} />
         <Stack.Screen
           name="Home"
           component={HomeScreen}
-          options={{title: 'Welcome'}}
+          options={{
+            title: '',
+            headerLeft: null,
+          }}
         />
         <Stack.Screen name="Profile" component={ProfileScreen} />
         <Stack.Screen name="Room" component={RoomScreen} />

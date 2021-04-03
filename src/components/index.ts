@@ -1,2 +1,3 @@
 export {Card} from './card';
 export {Section} from './section';
+export {Feed} from './feed';
