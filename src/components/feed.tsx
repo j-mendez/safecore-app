@@ -19,23 +19,23 @@ const DATA = [
   },
 ];
 
-const Item = ({title}) => (
-  <View style={styles.item}>
-    <Text style={styles.title}>{title}</Text>
-  </View>
-);
+type ItemCellProps = {
+  title?: string;
+};
+
+type ItemProps = {
+  item: ItemCellProps;
+};
 
 type Props = {
-  renderItem?: () => void;
+  renderItem?: (data?: any) => any;
 };
 
 export const Feed: React.FC<Props> = ({renderItem}) => {
-  const renderDefaultItem = ({item}) => <Item title={item.title} />;
-
   return (
     <FlatList
       data={DATA}
-      renderItem={renderItem || renderDefaultItem}
+      renderItem={renderItem}
       keyExtractor={item => item.id}
       ItemSeparatorComponent={({highlighted}) => (
         <View style={[styles.separator, highlighted && styles.highlight]} />

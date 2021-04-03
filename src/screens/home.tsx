@@ -1,7 +1,8 @@
-import React from 'react';
+import 'react-native-gesture-handler';
+import React, {Fragment, useRef} from 'react';
 import {SafeAreaView, useColorScheme, Button} from 'react-native';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {Card, Feed} from '../components';
+import {Card, Sheet, Feed} from '../components';
 import {backgroundColor} from '../styles/background';
 import type {RootStackParamList} from '../types/navigation';
 
@@ -11,7 +12,10 @@ export type Props = {
   navigation: HomeScreenNavigationProp;
 };
 
+type BottomSheetRef = React.ElementRef<typeof Sheet>;
+
 const HomeScreen: React.FC<Props> = ({navigation}) => {
+  const sheetRef = useRef<BottomSheetRef>(null);
   const isDarkMode = useColorScheme() === 'dark';
   const backgroundStyle = {
     backgroundColor: backgroundColor(isDarkMode),
@@ -31,18 +35,23 @@ const HomeScreen: React.FC<Props> = ({navigation}) => {
   }, [navigation]);
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <Feed
-        renderItem={({item}) => (
-          <Card title={item.title}>{item.description}</Card>
-        )}
-      />
-      <Button
-        title="Create Room"
-        accessibilityLabel="Create a Room"
-        onPress={() => navigation.navigate('Room', {name: 'Me'})}
-      />
-    </SafeAreaView>
+    <Fragment>
+      <SafeAreaView style={backgroundStyle}>
+        <Feed
+          renderItem={({item}: any): any => (
+            <Card title={item.title} onPress={() => sheetRef?.current?.open()}>
+              {item.description}
+            </Card>
+          )}
+        />
+        <Button
+          title="Create Room"
+          accessibilityLabel="Create a Room"
+          onPress={() => navigation.navigate('Room', {name: 'Me'})}
+        />
+      </SafeAreaView>
+      <Sheet ref={sheetRef} />
+    </Fragment>
   );
 };
 
