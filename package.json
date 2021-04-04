@@ -7,7 +7,8 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "tsc": "tsc"
   },
   "license": "GNU",
   "dependencies": {
@@ -35,9 +36,38 @@
     "jest": "^26.6.3",
     "metro-react-native-babel-preset": "^0.65.2",
     "react-test-renderer": "17.0.1",
+    "ts-jest": "^26.5.4",
     "typescript": "^4.2.3"
   },
   "jest": {
-    "preset": "react-native"
+    "preset": "react-native",
+    "transform": {
+      "\\.(ts|tsx)$": "ts-jest"
+    },
+    "transformIgnorePatterns": [
+      "node_modules/(?!(react-native|cozone|@react-native|react-native-button|nodejs-mobile-react-native|@react-navigation|react-native-iphone-x-helper)/)"
+    ],
+    "globals": {
+      "ts-jest": {
+        "tsconfig": "tsconfig.jest.json"
+      }
+    },
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
+    "moduleNameMapper": {
+      "@app/*": [
+        "src/*"
+      ],
+      "@app/components": [
+        "src/components"
+      ]
+    },
+    "setupFiles": [
+      "<rootDir>/setup-jest.js"
+    ]
   }
 }

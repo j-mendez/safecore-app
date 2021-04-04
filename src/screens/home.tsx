@@ -27,8 +27,6 @@ const HomeScreen: React.FC<Props> = ({navigation}) => {
 
   useSocket(setCurrent);
 
-  console.log(currentMessage);
-
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
@@ -40,6 +38,8 @@ const HomeScreen: React.FC<Props> = ({navigation}) => {
       ),
     });
   }, [navigation]);
+
+  console.info(currentMessage);
 
   return (
     <Fragment>

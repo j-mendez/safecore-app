@@ -1,15 +1,31 @@
 import {useEffect} from 'react';
-import type {User} from '@app/types';
+// import type {User} from '@app/types';
 
 const useSocket = (cb: (a: any) => void): void => {
   useEffect(() => {
-    const client = new WebSocket('wss://127.0.0.1:64738');
-
-    client.onopen = () => {
-      client.send('channel');
+    const client = new WebSocket(
+      `ws${process.env.NODE_ENV === 'production' ? 's' : ''}://127.0.0.1:7770`,
+    );
+    const timestamp = new Date().getTime();
+    const payload = {
+      timestamp,
     };
 
-    client.onmessage = (message: {data: string | User}) => {
+    client.onopen = () => {
+      client.send(
+        JSON.stringify({
+          name: 'Ping',
+          payload,
+        }),
+      );
+    };
+
+    client.onmessage = (message: {data?: string}) => {
+      const data = message?.data;
+      if (data) {
+        const parsedData = typeof data === 'string' ? JSON.parse(data) : data;
+        console.log(parsedData);
+      }
       console.log(message);
     };
 

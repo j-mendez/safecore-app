@@ -14,16 +14,10 @@
 		"target": "esnext",
 		"baseUrl": ".",
 		"paths": {
-			"*": [
+			"@app/*": [
 				"src/*"
 			],
-			"tests": [
-				"tests/*"
-			],
-			"@components/*": [
-				"src/components/*"
-			],
-			"@types/*": [
+			"@app/types": [
 				"src/types"
 			]
 		}
