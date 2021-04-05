@@ -1,24 +1,23 @@
 import 'react-native-gesture-handler';
-import React, {Fragment, useState, useRef} from 'react';
+import React, {Fragment, useRef} from 'react';
 import {SafeAreaView, useColorScheme, Button} from 'react-native';
 import {Card, Sheet, Feed} from '../components';
-import {useSocket} from '../hooks';
+import {useSocket, useHandle} from '../hooks';
 import {backgroundColor} from '../styles/background';
 import type {HomeProps} from '../types/navigation';
-import type {User} from '@app/types';
 
 type BottomSheetRef = React.ElementRef<typeof Sheet>;
 
 const HomeScreen: React.FC<HomeProps> = ({navigation}) => {
   const sheetRef = useRef<BottomSheetRef>(null);
-  const [currentMessage, setCurrent] = useState<User>();
-  const isDarkMode = useColorScheme() === 'dark';
+  const [handle, state] = useHandle();
+
   const backgroundStyle = {
-    backgroundColor: backgroundColor(isDarkMode),
+    backgroundColor: backgroundColor(useColorScheme() === 'dark'),
     flex: 1,
   };
 
-  useSocket(setCurrent);
+  useSocket(handle);
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -32,12 +31,11 @@ const HomeScreen: React.FC<HomeProps> = ({navigation}) => {
     });
   }, [navigation]);
 
-  console.info(currentMessage);
-
   return (
     <Fragment>
       <SafeAreaView style={backgroundStyle}>
         <Feed
+          channels={state?.channels}
           renderItem={({item}: any): any => (
             <Card title={item.title} onPress={() => sheetRef?.current?.open()}>
               {item.description}

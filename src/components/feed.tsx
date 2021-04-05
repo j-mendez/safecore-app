@@ -29,6 +29,7 @@ type ItemProps = {
 
 type Props = {
   renderItem?: (data?: any) => any;
+  channels?: any;
 };
 
 export const Feed: React.FC<Props> = ({renderItem}) => {

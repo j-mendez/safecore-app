@@ -24,10 +24,8 @@ const useSocket = (cb: (a: any) => void): void => {
       const data = message?.data;
       if (data) {
         const parsedData = typeof data === 'string' ? JSON.parse(data) : data;
-        console.log(parsedData);
         typeof cb === 'function' && cb(parsedData);
       }
-      console.log(message);
     };
 
     return () => {
