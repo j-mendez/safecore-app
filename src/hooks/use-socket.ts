@@ -14,7 +14,7 @@ const useSocket = (cb: (a: any) => void): void => {
     client.onopen = () => {
       client.send(
         JSON.stringify({
-          name: 'Ping',
+          name: 'Channels',
           payload,
         }),
       );
@@ -25,6 +25,7 @@ const useSocket = (cb: (a: any) => void): void => {
       if (data) {
         const parsedData = typeof data === 'string' ? JSON.parse(data) : data;
         console.log(parsedData);
+        typeof cb === 'function' && cb(parsedData);
       }
       console.log(message);
     };

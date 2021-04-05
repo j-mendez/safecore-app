@@ -2,6 +2,7 @@ import React from 'react';
 import {SafeAreaView, StatusBar, useColorScheme} from 'react-native';
 import {MyStack} from './navigation';
 import {backgroundColor} from './styles/background';
+import {RecoilRoot} from 'recoil';
 
 export interface Props {}
 
@@ -13,10 +14,12 @@ const App: React.FC<Props> = () => {
   };
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <MyStack />
-    </SafeAreaView>
+    <RecoilRoot>
+      <SafeAreaView style={backgroundStyle}>
+        <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+        <MyStack />
+      </SafeAreaView>
+    </RecoilRoot>
   );
 };
 

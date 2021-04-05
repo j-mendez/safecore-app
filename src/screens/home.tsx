@@ -1,22 +1,15 @@
 import 'react-native-gesture-handler';
 import React, {Fragment, useState, useRef} from 'react';
 import {SafeAreaView, useColorScheme, Button} from 'react-native';
-import {StackNavigationProp} from '@react-navigation/stack';
 import {Card, Sheet, Feed} from '../components';
 import {useSocket} from '../hooks';
 import {backgroundColor} from '../styles/background';
-import type {RootStackParamList} from '../types/navigation';
+import type {HomeProps} from '../types/navigation';
 import type {User} from '@app/types';
-
-type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>;
-
-export type Props = {
-  navigation: HomeScreenNavigationProp;
-};
 
 type BottomSheetRef = React.ElementRef<typeof Sheet>;
 
-const HomeScreen: React.FC<Props> = ({navigation}) => {
+const HomeScreen: React.FC<HomeProps> = ({navigation}) => {
   const sheetRef = useRef<BottomSheetRef>(null);
   const [currentMessage, setCurrent] = useState<User>();
   const isDarkMode = useColorScheme() === 'dark';
