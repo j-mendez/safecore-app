@@ -20,7 +20,7 @@ type Props = {
 export const Card: React.FC<Props> = ({children, item, onPress, ...props}) => {
   const isDarkMode = useColorScheme() === 'dark';
   const {name} = item;
-  console.log(item, props);
+
   const Cell: React.FC = () => {
     return (
       <Fragment>

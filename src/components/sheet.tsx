@@ -30,8 +30,6 @@ const SheetComponent: RefForwardingComponent<SheetHandle, SheetProps> = (
 
   const {activeChannel} = props;
 
-  console.log(activeChannel);
-
   const renderContent = () => (
     <View style={[styles.sheet, {height: windowHeight}]}>
       <Text>{activeChannel?.name || 'Club Room'}</Text>

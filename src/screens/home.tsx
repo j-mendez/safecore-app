@@ -2,7 +2,7 @@ import 'react-native-gesture-handler';
 import React, {Fragment, useLayoutEffect, useRef} from 'react';
 import {SafeAreaView, useColorScheme, Button} from 'react-native';
 import {Sheet, Feed} from '../components';
-import {useSocket, useHandle} from '../hooks';
+import {socketClient, useSocket, useHandle} from '../hooks';
 import {backgroundColor} from '../styles/background';
 import type {HomeProps} from '../types/navigation';
 
@@ -38,6 +38,13 @@ const HomeScreen: React.FC<HomeProps> = ({navigation}) => {
         <Feed
           channels={channels}
           onPress={(channel: any) => {
+            socketClient.client.send(
+              JSON.stringify({
+                name: 'Connect',
+                channel,
+                user: {name: 'Test'},
+              }),
+            );
             setActiveChannel(channel);
             sheetRef?.current?.open();
           }}

@@ -1,6 +1,10 @@
 import {useEffect} from 'react';
 // import type {User} from '@app/types';
 
+const socketClient = {
+  client: {send: (a: any) => a},
+};
+
 const useSocket = (cb: (a: any) => void): void => {
   useEffect(() => {
     const client = new WebSocket(
@@ -29,10 +33,11 @@ const useSocket = (cb: (a: any) => void): void => {
       }
     };
 
+    socketClient.client = client;
     return () => {
       client.close();
     };
   }, [cb]);
 };
 
-export {useSocket};
+export {socketClient, useSocket};

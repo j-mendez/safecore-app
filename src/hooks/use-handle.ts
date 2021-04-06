@@ -12,6 +12,11 @@ const activeChannelState = atom({
   default: '',
 });
 
+const channelUsersState = atom({
+  key: 'channelUsersState',
+  default: [],
+});
+
 type Message = {
   data: any;
   type: string;
@@ -20,6 +25,7 @@ type Message = {
 const useHandle = (): any => {
   const [channels, setChannels] = useRecoilState(channelState);
   const [activeChannel, setActiveChannel] = useRecoilState(activeChannelState);
+  const [channelUsers, setChannelUsers] = useRecoilState(channelUsersState);
 
   const handle = useCallback(
     (message: Message) => {
@@ -27,12 +33,15 @@ const useHandle = (): any => {
       if (type === 'channels') {
         setChannels(data);
       }
+      if (type === 'channel-users') {
+        setChannelUsers(data);
+      }
     },
-    [setChannels],
+    [setChannels, setChannelUsers],
   );
 
   console.log(channels);
-  return [handle, {channels, activeChannel, setActiveChannel}];
+  return [handle, {channels, activeChannel, setActiveChannel, channelUsers}];
 };
 
 export {useHandle};
