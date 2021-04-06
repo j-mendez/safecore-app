@@ -4,6 +4,11 @@ import {atom, useRecoilState} from 'recoil';
 
 const channelState = atom({
   key: 'channelState',
+  default: [],
+});
+
+const activeChannelState = atom({
+  key: 'activeChannelState',
   default: '',
 });
 
@@ -14,6 +19,7 @@ type Message = {
 
 const useHandle = (): any => {
   const [channels, setChannels] = useRecoilState(channelState);
+  const [activeChannel, setActiveChannel] = useRecoilState(activeChannelState);
 
   const handle = useCallback(
     (message: Message) => {
@@ -26,7 +32,7 @@ const useHandle = (): any => {
   );
 
   console.log(channels);
-  return [handle, {channels}];
+  return [handle, {channels, activeChannel, setActiveChannel}];
 };
 
 export {useHandle};

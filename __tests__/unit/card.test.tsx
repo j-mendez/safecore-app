@@ -6,5 +6,5 @@ import {Card} from '../../src/components';
 import renderer from 'react-test-renderer';
 
 it('renders correctly', () => {
-  renderer.create(<Card title={'hi'} />);
+  renderer.create(<Card item={{name: 'Lobby'}} />);
 });

@@ -8,13 +8,15 @@ mobile application for safe encrypted voice chat.
 2. `react-native run-ios`
 3. `react-native run-android`
 
+## About
+
+This is a cross platform voice app that communicates with murmur for low latency decrypted communication.
+
 ### Progress
 
-progress will be posted here using gyazo gifs
+progress will be posted here using gifs.
 
-https://gyazo.com/0d8f886227901ecb56be1bf890e49fa3
-
-![App Progress](https://i.gyazo.com/0d8f886227901ecb56be1bf890e49fa3.gif)
+![App Progress](https://i.gyazo.com/0fbdece983908b9d24aa0d38b7cc35d1.gif)
 
 
 

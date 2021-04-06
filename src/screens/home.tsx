@@ -1,7 +1,7 @@
 import 'react-native-gesture-handler';
-import React, {Fragment, useRef} from 'react';
+import React, {Fragment, useLayoutEffect, useRef} from 'react';
 import {SafeAreaView, useColorScheme, Button} from 'react-native';
-import {Card, Sheet, Feed} from '../components';
+import {Sheet, Feed} from '../components';
 import {useSocket, useHandle} from '../hooks';
 import {backgroundColor} from '../styles/background';
 import type {HomeProps} from '../types/navigation';
@@ -11,7 +11,6 @@ type BottomSheetRef = React.ElementRef<typeof Sheet>;
 const HomeScreen: React.FC<HomeProps> = ({navigation}) => {
   const sheetRef = useRef<BottomSheetRef>(null);
   const [handle, state] = useHandle();
-
   const backgroundStyle = {
     backgroundColor: backgroundColor(useColorScheme() === 'dark'),
     flex: 1,
@@ -19,7 +18,7 @@ const HomeScreen: React.FC<HomeProps> = ({navigation}) => {
 
   useSocket(handle);
 
-  React.useLayoutEffect(() => {
+  useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
         <Button
@@ -31,16 +30,17 @@ const HomeScreen: React.FC<HomeProps> = ({navigation}) => {
     });
   }, [navigation]);
 
+  const {channels, activeChannel, setActiveChannel} = state;
+
   return (
     <Fragment>
       <SafeAreaView style={backgroundStyle}>
         <Feed
-          channels={state?.channels}
-          renderItem={({item}: any): any => (
-            <Card title={item.title} onPress={() => sheetRef?.current?.open()}>
-              {item.description}
-            </Card>
-          )}
+          channels={channels}
+          onPress={(channel: any) => {
+            setActiveChannel(channel);
+            sheetRef?.current?.open();
+          }}
         />
         <Button
           title="Create Room"
@@ -48,7 +48,7 @@ const HomeScreen: React.FC<HomeProps> = ({navigation}) => {
           onPress={() => navigation.navigate('Room', {name: 'Me'})}
         />
       </SafeAreaView>
-      <Sheet ref={sheetRef} />
+      <Sheet ref={sheetRef} activeChannel={activeChannel} />
     </Fragment>
   );
 };

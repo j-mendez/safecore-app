@@ -8,13 +8,19 @@ import {
 } from 'react-native';
 import {backgroundColor} from '../styles/background';
 
+type CardItemProps = {
+  name: string;
+};
+
 type Props = {
-  title: string;
+  item: CardItemProps;
   onPress?: () => void;
 };
 
-export const Card: React.FC<Props> = ({children, title, onPress}) => {
+export const Card: React.FC<Props> = ({children, item, onPress, ...props}) => {
   const isDarkMode = useColorScheme() === 'dark';
+  const {name} = item;
+  console.log(item, props);
   const Cell: React.FC = () => {
     return (
       <Fragment>
@@ -25,7 +31,7 @@ export const Card: React.FC<Props> = ({children, title, onPress}) => {
               color: backgroundColor(isDarkMode, true),
             },
           ]}>
-          {title}
+          {name}
         </Text>
         <Text
           style={[

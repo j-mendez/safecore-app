@@ -1,23 +1,6 @@
 import React from 'react';
 import {View, FlatList, StyleSheet, StatusBar} from 'react-native';
-
-const DATA = [
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    title: 'Bitcoin Cigar Lounge, Q & A',
-    description: 'btc talk and cigars',
-  },
-  {
-    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-    title: 'Medtech Digital Health',
-    description: 'relax',
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d72',
-    title: 'Traphouse Ent',
-    description: 'vibe and chill',
-  },
-];
+import {Card} from './card';
 
 type ItemCellProps = {
   title?: string;
@@ -29,15 +12,34 @@ type ItemProps = {
 
 type Props = {
   renderItem?: (data?: any) => any;
-  channels?: any;
+  channels?: any[];
+  onPress?: (data?: any) => any;
 };
 
-export const Feed: React.FC<Props> = ({renderItem}) => {
+const keyExtractor = (item: any, index: number) => item.channel_id || index;
+
+export const Feed: React.FC<Props> = ({
+  renderItem: RenderItem,
+  onPress,
+  channels,
+}) => {
+  const Item = RenderItem ? RenderItem : Card;
   return (
     <FlatList
-      data={DATA}
-      renderItem={renderItem}
-      keyExtractor={item => item.id}
+      data={channels || []}
+      renderItem={data => (
+        <Item
+          {...data}
+          onPress={
+            onPress
+              ? () => {
+                  onPress(data.item);
+                }
+              : undefined
+          }
+        />
+      )}
+      keyExtractor={keyExtractor}
       ItemSeparatorComponent={({highlighted}) => (
         <View style={[styles.separator, highlighted && styles.highlight]} />
       )}

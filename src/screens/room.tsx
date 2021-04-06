@@ -8,7 +8,7 @@ import {
   Text,
 } from 'react-native';
 
-import {Colors, Header} from 'react-native/Libraries/NewAppScreen';
+import {Header} from 'react-native/Libraries/NewAppScreen';
 import {RouteProp} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import type {RootStackParamList} from '../types/navigation';
@@ -32,6 +32,8 @@ const RoomScreen: React.FC<Props> = ({navigation, route}) => {
   const backgroundStyle = {
     backgroundColor: backgroundColor(isDarkMode),
   };
+
+  console.log(navigation);
 
   return (
     <SafeAreaView style={backgroundStyle}>

@@ -4,19 +4,22 @@ import React, {
   useMemo,
   useImperativeHandle,
   useRef,
+  RefForwardingComponent,
 } from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import BottomSheet from 'reanimated-bottom-sheet';
 import {useWindowDimensions} from 'react-native';
 
-type SheetProps = {};
+type SheetProps = {
+  activeChannel: any;
+};
 
 type SheetHandle = {
   open: () => void;
 };
 
-const SheetComponent: React.RefForwardingComponent<SheetHandle, SheetProps> = (
-  _: any,
+const SheetComponent: RefForwardingComponent<SheetHandle, SheetProps> = (
+  props: any,
   ref: any,
 ) => {
   const bottomSheetModalRef = useRef<BottomSheet>(null);
@@ -25,14 +28,18 @@ const SheetComponent: React.RefForwardingComponent<SheetHandle, SheetProps> = (
     windowHeight,
   ]);
 
+  const {activeChannel} = props;
+
+  console.log(activeChannel);
+
   const renderContent = () => (
     <View style={[styles.sheet, {height: windowHeight}]}>
-      <Text>Club Room</Text>
+      <Text>{activeChannel?.name || 'Club Room'}</Text>
     </View>
   );
 
   useImperativeHandle(ref, () => ({
-    open: () => {
+    open() {
       bottomSheetModalRef.current?.snapTo(2);
     },
   }));
