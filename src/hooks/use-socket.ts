@@ -1,4 +1,6 @@
 import {useEffect} from 'react';
+import {Platform} from 'react-native';
+
 // import type {User} from '@app/types';
 
 const socketClient = {
@@ -8,7 +10,9 @@ const socketClient = {
 const useSocket = (cb: (a: any) => void): void => {
   useEffect(() => {
     const client = new WebSocket(
-      `ws${process.env.NODE_ENV === 'production' ? 's' : ''}://127.0.0.1:7770`,
+      `ws${process.env.NODE_ENV === 'production' ? 's' : ''}://${
+        Platform.OS === 'android' ? '10.0.2.2' : 'localhost'
+      }:7770`,
     );
     const timestamp = new Date().getTime();
     const payload = {

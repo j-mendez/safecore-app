@@ -40,7 +40,9 @@ const useHandle = (): any => {
     [setChannels, setChannelUsers],
   );
 
-  console.log(channels);
+  console.log(['channels', channels]);
+  console.log(['channel-users', channelUsers]);
+
   return [handle, {channels, activeChannel, setActiveChannel, channelUsers}];
 };
 

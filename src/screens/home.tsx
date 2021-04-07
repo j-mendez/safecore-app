@@ -5,6 +5,7 @@ import {Sheet, Feed} from '../components';
 import {socketClient, useSocket, useHandle} from '../hooks';
 import {backgroundColor} from '../styles/background';
 import type {HomeProps} from '../types/navigation';
+import {appStorage} from '../utils/storage';
 
 type BottomSheetRef = React.ElementRef<typeof Sheet>;
 
@@ -37,12 +38,13 @@ const HomeScreen: React.FC<HomeProps> = ({navigation}) => {
       <SafeAreaView style={backgroundStyle}>
         <Feed
           channels={channels}
-          onPress={(channel: any) => {
+          onPress={async (channel: any) => {
+            const uname = await appStorage.getItem('UserName');
             socketClient.client.send(
               JSON.stringify({
                 name: 'Connect',
                 channel,
-                user: {name: 'Test'},
+                user: {name: uname || 'Test'},
               }),
             );
             setActiveChannel(channel);

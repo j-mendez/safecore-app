@@ -130,6 +130,10 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    packagingOptions {
+            pickFirst '**/*.so'
+    }
+
     defaultConfig {
         applicationId "com.cozone"
         minSdkVersion rootProject.ext.minSdkVersion

@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {
+  Alert,
   Button,
   TextInput,
   SafeAreaView,
@@ -12,6 +13,7 @@ import {Row} from '../components';
 import {backgroundColor} from '../styles/background';
 import {styles} from '../styles/containers';
 import type {RootStackParamList} from '../types/navigation';
+import {appStorage} from '../utils/storage';
 
 type LoginScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -23,11 +25,20 @@ export type Props = {
 };
 
 const LoginScreen: React.FC<Props> = ({navigation}) => {
-  const [text, onChangeText] = useState<string>('');
+  const [name, onChangeText] = useState<string>('');
   const isDarkMode = useColorScheme() === 'dark';
   const backgroundStyle = {
     backgroundColor: backgroundColor(isDarkMode),
     flex: 1,
+  };
+
+  const login = async () => {
+    if (name) {
+      await appStorage.setItem({key: 'UserName', value: name});
+      navigation.navigate('Home', {name});
+    } else {
+      Alert.alert('please enter a name');
+    }
   };
 
   return (
@@ -39,7 +50,7 @@ const LoginScreen: React.FC<Props> = ({navigation}) => {
         <TextInput
           style={styles.input}
           onChangeText={onChangeText}
-          value={text}
+          value={name}
           placeholder={'User Name'}
         />
       </ScrollView>
@@ -47,7 +58,7 @@ const LoginScreen: React.FC<Props> = ({navigation}) => {
         <Button
           title="Login"
           accessibilityLabel="login to application"
-          onPress={() => navigation.navigate('Home', {name: 'Jane'})}
+          onPress={login}
           color="#f194ff"
         />
         <Button
