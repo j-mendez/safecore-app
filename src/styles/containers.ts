@@ -11,7 +11,6 @@ const styles = StyleSheet.create({
   },
   input: {
     minHeight: 40,
-    margin: 12,
   },
 });
 

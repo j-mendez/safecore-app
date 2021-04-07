@@ -2,12 +2,12 @@ import React, {useState} from 'react';
 import {
   Alert,
   Button,
+  Text,
   TextInput,
   SafeAreaView,
   ScrollView,
   useColorScheme,
 } from 'react-native';
-import {Header} from 'react-native/Libraries/NewAppScreen';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {Row} from '../components';
 import {backgroundColor} from '../styles/background';
@@ -30,6 +30,7 @@ const LoginScreen: React.FC<Props> = ({navigation}) => {
   const backgroundStyle = {
     backgroundColor: backgroundColor(isDarkMode),
     flex: 1,
+    padding: 12,
   };
 
   const login = async () => {
@@ -46,7 +47,7 @@ const LoginScreen: React.FC<Props> = ({navigation}) => {
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         style={backgroundStyle}>
-        <Header />
+        <Text>Enter your name</Text>
         <TextInput
           style={styles.input}
           onChangeText={onChangeText}
@@ -59,12 +60,7 @@ const LoginScreen: React.FC<Props> = ({navigation}) => {
           title="Login"
           accessibilityLabel="login to application"
           onPress={login}
-          color="#f194ff"
-        />
-        <Button
-          title="Register"
-          accessibilityLabel="Register account and login"
-          onPress={() => navigation.navigate('Register', {name: 'Jane'})}
+          color="#000"
         />
       </Row>
     </SafeAreaView>
