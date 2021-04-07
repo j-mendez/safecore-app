@@ -4,6 +4,8 @@ mobile application for safe encrypted voice chat.
 
 ## Getting Started
 
+First time project install make sure to run `cd ios && pod install` after `yarn install`
+
 1. `yarn install`
 2. `react-native run-ios`
 3. `react-native run-android`
