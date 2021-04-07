@@ -9,9 +9,14 @@ import React, {
 import {View, Text, StyleSheet} from 'react-native';
 import BottomSheet from 'reanimated-bottom-sheet';
 import {useWindowDimensions} from 'react-native';
+import {appStorage} from '../utils/storage';
 
+type Users = {
+  name: string;
+};
 type SheetProps = {
   activeChannel: any;
+  channelUsers: Users[];
 };
 
 type SheetHandle = {
@@ -28,11 +33,16 @@ const SheetComponent: RefForwardingComponent<SheetHandle, SheetProps> = (
     windowHeight,
   ]);
 
-  const {activeChannel} = props;
+  const {activeChannel, channelUsers} = props;
+  const me = appStorage.getItem('UserName');
 
   const renderContent = () => (
     <View style={[styles.sheet, {height: windowHeight}]}>
       <Text>{activeChannel?.name || 'Club Room'}</Text>
+      <Text>Me: {me}</Text>
+      {channelUsers.map((user: any, i: number) => {
+        return <Text key={i}>User: {user.name}</Text>;
+      })}
     </View>
   );
 

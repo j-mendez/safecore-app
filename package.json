@@ -44,10 +44,11 @@
   "jest": {
     "preset": "react-native",
     "transform": {
-      "\\.(ts|tsx)$": "ts-jest"
+      "\\.(ts|tsx)$": "ts-jest",
+      "^.+\\.(js|jsx)$": "babel-jest"
     },
     "transformIgnorePatterns": [
-      "node_modules/(?!(react-native|cozone|@react-native|react-native-button|nodejs-mobile-react-native|@react-navigation|react-native-iphone-x-helper)/)"
+      "node_modules/(?!(react-native|cozone|@react-native|react-native-button|react-native-mmkv-storage|nodejs-mobile-react-native|@react-navigation|react-native-iphone-x-helper)/)"
     ],
     "globals": {
       "ts-jest": {

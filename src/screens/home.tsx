@@ -31,7 +31,7 @@ const HomeScreen: React.FC<HomeProps> = ({navigation}) => {
     });
   }, [navigation]);
 
-  const {channels, activeChannel, setActiveChannel} = state;
+  const {channels, activeChannel, channelUsers, setActiveChannel} = state;
 
   return (
     <Fragment>
@@ -57,7 +57,11 @@ const HomeScreen: React.FC<HomeProps> = ({navigation}) => {
           onPress={() => navigation.navigate('Room', {name: 'Me'})}
         />
       </SafeAreaView>
-      <Sheet ref={sheetRef} activeChannel={activeChannel} />
+      <Sheet
+        ref={sheetRef}
+        activeChannel={activeChannel}
+        channelUsers={channelUsers}
+      />
     </Fragment>
   );
 };
