@@ -12,6 +12,12 @@ mobile application for safe encrypted voice chat.
 
 This is a cross platform voice app that communicates with murmur for low latency decrypted communication.
 
+1.  [cross-platform](https://reactnative.dev/)
+2. `headless auth`
+3. `hermes-engine`
+4. `socket driven`
+5. [encrypted storage](https://rnmmkv.now.sh/#/?id=react-native-mmkv-storage)
+
 ### Progress
 
 progress will be posted here using gifs.
