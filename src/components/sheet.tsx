@@ -10,9 +10,6 @@ import React, {
 import BottomSheet from 'reanimated-bottom-sheet';
 import {useWindowDimensions} from 'react-native';
 import {appStorage} from '../utils/storage';
-import {ActiveChannel, CreateChannel} from './channel';
-import {socketClient} from '../hooks/use-socket';
-import Animated from 'react-native-reanimated';
 
 type Users = {
   name: string;
@@ -40,6 +37,7 @@ const SheetComponent: RefForwardingComponent<SheetHandle, SheetProps> = (
   const {activeChannel, channelUsers} = props;
   const me = appStorage.getItem('UserName');
 
+<<<<<<< HEAD
   useEffect(() => {
     return () => {
       console.log('disconnecting');
@@ -64,6 +62,17 @@ const SheetComponent: RefForwardingComponent<SheetHandle, SheetProps> = (
       />
     );
   };
+=======
+  const renderContent = () => (
+    <View style={[styles.sheet, {height: windowHeight}]}>
+      <Text>{activeChannel?.name || 'Club Room'}</Text>
+      <Text>Me: {me}</Text>
+      {channelUsers.map((user: any, i: number) => {
+        return <Text key={i}>User: {user.name}</Text>;
+      })}
+    </View>
+  );
+>>>>>>> chore(channel): add channel users view
 
   useImperativeHandle(ref, () => ({
     open() {
