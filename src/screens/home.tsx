@@ -54,7 +54,7 @@ const HomeScreen: React.FC<HomeProps> = ({navigation}) => {
         <Button
           title="Create Room"
           accessibilityLabel="Create a Room"
-          onPress={() => navigation.navigate('Room', {name: 'Me'})}
+          onPress={() => sheetRef?.current?.open()}
         />
       </SafeAreaView>
       <Sheet

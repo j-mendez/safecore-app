@@ -10,7 +10,7 @@ import React, {
 import BottomSheet from 'reanimated-bottom-sheet';
 import {useWindowDimensions} from 'react-native';
 import {appStorage} from '../utils/storage';
-import {ActiveChannel} from './channel';
+import {ActiveChannel, CreateChannel} from './channel';
 import {socketClient} from '../hooks/use-socket';
 import Animated from 'react-native-reanimated';
 
@@ -30,7 +30,7 @@ const SheetComponent: RefForwardingComponent<SheetHandle, SheetProps> = (
   props: any,
   ref: any,
 ) => {
-  const contentPosition = new Animated.Value(0);
+  const contentPosition = useMemo(() => new Animated.Value(0), []);
   const bottomSheetModalRef = useRef<BottomSheet>(null);
   const windowHeight = useWindowDimensions().height;
   const snapPoints = useMemo(() => [0, '20%', windowHeight - 125], [
@@ -52,6 +52,9 @@ const SheetComponent: RefForwardingComponent<SheetHandle, SheetProps> = (
   }, []);
 
   const renderContent = () => {
+    if (!activeChannel) {
+      return <CreateChannel me={me} windowHeight={windowHeight} />;
+    }
     return (
       <ActiveChannel
         activeChannel={activeChannel}
@@ -69,8 +72,7 @@ const SheetComponent: RefForwardingComponent<SheetHandle, SheetProps> = (
   }));
 
   const onOpenEnd = useCallback(() => {
-    console.log(contentPosition);
-    console.log('open-end');
+    console.log([contentPosition, 'open-end']);
   }, [contentPosition]);
 
   const onOpenStart = useCallback(() => {
