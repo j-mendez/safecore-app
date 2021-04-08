@@ -20,11 +20,17 @@ This is a cross platform voice app that communicates with murmur for low latency
 4. `socket driven`
 5. [encrypted storage](https://rnmmkv.now.sh/#/?id=react-native-mmkv-storage)
 
+## Features
+
+1. channels
+2. encrypted front-back
+3. low bandwidth
+
 ### Progress
 
 progress will be posted here using gifs.
 
-![App Progress](https://i.gyazo.com/0fbdece983908b9d24aa0d38b7cc35d1.gif)
+![Progress](https://i.gyazo.com/3dd272429e84eb91b27548ed3a28c55d.gif)
 
 
 
