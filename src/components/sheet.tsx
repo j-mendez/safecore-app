@@ -7,10 +7,11 @@ import React, {
   useRef,
   RefForwardingComponent,
 } from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {StyleSheet} from 'react-native';
 import BottomSheet from 'reanimated-bottom-sheet';
 import {useWindowDimensions} from 'react-native';
 import {appStorage} from '../utils/storage';
+import {ActiveChannel} from './channel';
 
 type Users = {
   name: string;
@@ -50,15 +51,15 @@ const SheetComponent: RefForwardingComponent<SheetHandle, SheetProps> = (
     };
   }, []);
 
-  const renderContent = () => (
-    <View style={[styles.sheet, {height: windowHeight}]}>
-      <Text>{activeChannel?.name || 'Club Room'}</Text>
-      <Text>Me: {me}</Text>
-      {channelUsers.map((user: any, i: number) => {
-        return <Text key={i}>User: {user.name}</Text>;
-      })}
-    </View>
-  );
+  const renderContent = () => {
+    return (
+      <ActiveChannel
+        activeChannel={activeChannel}
+        channelUsers={channelUsers}
+        me={me}
+      />
+    );
+  };
 
   useImperativeHandle(ref, () => ({
     open() {
