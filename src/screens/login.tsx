@@ -14,6 +14,7 @@ import {backgroundColor} from '../styles/background';
 import {styles} from '../styles/containers';
 import type {RootStackParamList} from '../types/navigation';
 import {appStorage} from '../utils/storage';
+import {useUser} from '../hooks/use-user';
 
 type LoginScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -21,12 +22,13 @@ type LoginScreenNavigationProp = StackNavigationProp<
 >;
 
 export type Props = {
-  navigation: LoginScreenNavigationProp;
+  navigation?: LoginScreenNavigationProp;
 };
 
-const LoginScreen: React.FC<Props> = ({navigation}) => {
+const LoginScreen: React.FC<Props> = () => {
   const [name, onChangeText] = useState<string>('');
   const isDarkMode = useColorScheme() === 'dark';
+  const [_, {grabUser}] = useUser();
   const backgroundStyle = {
     backgroundColor: backgroundColor(isDarkMode),
     flex: 1,
@@ -35,8 +37,9 @@ const LoginScreen: React.FC<Props> = ({navigation}) => {
 
   const login = async () => {
     if (name) {
+      console.log(_);
       await appStorage.setItem({key: 'UserName', value: name});
-      navigation.navigate('Home', {name});
+      await grabUser();
     } else {
       Alert.alert('please enter a name');
     }
