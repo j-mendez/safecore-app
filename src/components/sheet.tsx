@@ -7,11 +7,12 @@ import React, {
   useRef,
   RefForwardingComponent,
 } from 'react';
-import {StyleSheet} from 'react-native';
 import BottomSheet from 'reanimated-bottom-sheet';
 import {useWindowDimensions} from 'react-native';
 import {appStorage} from '../utils/storage';
 import {ActiveChannel} from './channel';
+import {socketClient} from '../hooks/use-socket';
+import Animated from 'react-native-reanimated';
 
 type Users = {
   name: string;
@@ -29,6 +30,7 @@ const SheetComponent: RefForwardingComponent<SheetHandle, SheetProps> = (
   props: any,
   ref: any,
 ) => {
+  const contentPosition = new Animated.Value(0);
   const bottomSheetModalRef = useRef<BottomSheet>(null);
   const windowHeight = useWindowDimensions().height;
   const snapPoints = useMemo(() => [0, '20%', windowHeight - 125], [
@@ -39,8 +41,6 @@ const SheetComponent: RefForwardingComponent<SheetHandle, SheetProps> = (
   const me = appStorage.getItem('UserName');
 
   useEffect(() => {
-    const {socketClient} = require('../hooks/use-socket');
-
     return () => {
       console.log('disconnecting');
       socketClient.client.send(
@@ -57,6 +57,7 @@ const SheetComponent: RefForwardingComponent<SheetHandle, SheetProps> = (
         activeChannel={activeChannel}
         channelUsers={channelUsers}
         me={me}
+        windowHeight={windowHeight}
       />
     );
   };
@@ -68,37 +69,35 @@ const SheetComponent: RefForwardingComponent<SheetHandle, SheetProps> = (
   }));
 
   const onOpenEnd = useCallback(() => {
-    console.log('handleSheetChanges');
-  }, []);
+    console.log(contentPosition);
+    console.log('open-end');
+  }, [contentPosition]);
 
   const onOpenStart = useCallback(() => {
-    console.log('handleSheetChanges');
+    console.log('open-start');
+  }, []);
+
+  const onCloseEnd = useCallback(() => {
+    console.log('onCloseEnd');
+    socketClient.client.send(
+      JSON.stringify({
+        name: 'Disconnect',
+      }),
+    );
   }, []);
 
   return (
     <BottomSheet
+      contentPosition={contentPosition}
       ref={bottomSheetModalRef}
       snapPoints={snapPoints}
       renderContent={renderContent}
       onOpenEnd={onOpenEnd}
       onOpenStart={onOpenStart}
+      onCloseEnd={onCloseEnd}
     />
   );
 };
-
-const styles = StyleSheet.create({
-  sheet: {
-    backgroundColor: '#fff',
-    minHeight: 450,
-    borderTopWidth: 0.5,
-    borderLeftWidth: 1,
-    borderRightWidth: 1,
-    borderColor: 'rgb(30,30,30)',
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
-    padding: 12,
-  },
-});
 
 const Sheet = forwardRef(SheetComponent);
 

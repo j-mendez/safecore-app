@@ -11,7 +11,7 @@ export const ActiveChannel = ({
     <Text>{activeChannel?.name}</Text>
     <Text>Me: {me}</Text>
     {channelUsers
-      .filter((user: any) => user.name === me)
+      .filter((user: any) => user.name !== me)
       .map((user: any, i: number) => {
         return <Text key={i}>User: {user.name}</Text>;
       })}
