@@ -1,5 +1,6 @@
 import React, {
   useCallback,
+  useEffect,
   forwardRef,
   useMemo,
   useImperativeHandle,
@@ -35,6 +36,19 @@ const SheetComponent: RefForwardingComponent<SheetHandle, SheetProps> = (
 
   const {activeChannel, channelUsers} = props;
   const me = appStorage.getItem('UserName');
+
+  useEffect(() => {
+    const {socketClient} = require('../hooks/use-socket');
+
+    return () => {
+      console.log('disconnecting');
+      socketClient.client.send(
+        JSON.stringify({
+          name: 'Disconnect',
+        }),
+      );
+    };
+  }, []);
 
   const renderContent = () => (
     <View style={[styles.sheet, {height: windowHeight}]}>
