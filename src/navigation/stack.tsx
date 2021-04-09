@@ -9,9 +9,9 @@ import {useUser} from '../hooks/use-user';
 const Stack = createStackNavigator<RootStackParamList>();
 
 export const MyStack: React.FC = () => {
-  const [user, {logout}] = useUser();
+  const [user, {loaded, logout}] = useUser();
 
-  if (user === false) {
+  if (!loaded) {
     return <ActivityIndicator />;
   }
 

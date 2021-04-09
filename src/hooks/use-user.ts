@@ -4,11 +4,17 @@ import {appStorage} from '../utils/storage';
 
 const userState = atom({
   key: 'userState',
+  default: '',
+});
+
+const userLoadedState = atom({
+  key: 'userLoadedState',
   default: false,
 });
 
 const useUser = (): any => {
   const [user, setUser] = useRecoilState(userState);
+  const [loaded, setLoaded] = useRecoilState(userLoadedState);
 
   const grabUser = async () => {
     try {
@@ -16,7 +22,8 @@ const useUser = (): any => {
       setUser(uname);
     } catch (e) {
       console.error(e);
-      setUser('');
+    } finally {
+      setLoaded(true);
     }
   };
 
@@ -26,10 +33,10 @@ const useUser = (): any => {
 
   const logout = async () => {
     await appStorage.setItem({key: 'UserName', value: ''});
-    setUser(null);
+    setUser('');
   };
 
-  return [user, {logout, grabUser}];
+  return [user, {logout, loaded, grabUser}];
 };
 
 export {useUser};

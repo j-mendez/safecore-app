@@ -44,7 +44,7 @@ const HomeScreen: React.FC<HomeProps> = ({navigation}) => {
               JSON.stringify({
                 name: 'Connect',
                 channel,
-                user: {name: uname || 'Test'},
+                user: {name: uname},
               }),
             );
             setActiveChannel(channel);

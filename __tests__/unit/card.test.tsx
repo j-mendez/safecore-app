@@ -1,7 +1,7 @@
 import 'react-native';
 import 'react-native-gesture-handler/jestSetup';
 import React from 'react';
-import {Card} from '../../src/components';
+import {Card} from '../../src/components/card';
 
 import renderer from 'react-test-renderer';
 

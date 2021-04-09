@@ -20,7 +20,7 @@ DerivedData
 *.hmap
 *.ipa
 *.xcuserstate
-.jest
+.jest/
 # Android/IntelliJ
 #
 build/

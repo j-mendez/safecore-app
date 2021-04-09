@@ -67,7 +67,9 @@ const SheetComponent: RefForwardingComponent<SheetHandle, SheetProps> = (
 
   useImperativeHandle(ref, () => ({
     open() {
-      bottomSheetModalRef.current?.snapTo(2);
+      if (bottomSheetModalRef?.current?.snapTo) {
+        bottomSheetModalRef.current.snapTo(2);
+      }
     },
   }));
 
