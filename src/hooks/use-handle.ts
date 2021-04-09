@@ -36,12 +36,12 @@ const useHandle = (): any => {
       if (type === 'channel-users') {
         setChannelUsers(data);
       }
+      if (type === 'active-channel') {
+        setActiveChannel(data);
+      }
     },
-    [setChannels, setChannelUsers],
+    [setChannels, setChannelUsers, setActiveChannel],
   );
-
-  console.log(['channels', channels]);
-  console.log(['channel-users', channelUsers]);
 
   return [handle, {channels, activeChannel, setActiveChannel, channelUsers}];
 };

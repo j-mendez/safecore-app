@@ -1,22 +1,27 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
+import {userState} from '../../state/user';
+import {useRecoilValue} from 'recoil';
 
 export const ActiveChannel = ({
   activeChannel,
-  me,
   channelUsers,
   windowHeight,
-}: any) => (
-  <View style={[styles.sheet, {height: windowHeight}]}>
-    <Text>{activeChannel?.name}</Text>
-    <Text>Me: {me}</Text>
-    {channelUsers
-      .filter((user: any) => user.name !== me)
-      .map((user: any, i: number) => {
-        return <Text key={i}>User: {user.name}</Text>;
-      })}
-  </View>
-);
+}: any) => {
+  const me = useRecoilValue(userState);
+
+  return (
+    <View style={[styles.sheet, {height: windowHeight}]}>
+      <Text>{activeChannel?.name}</Text>
+      <Text>Me: {me}</Text>
+      {channelUsers
+        .filter((user: any) => user.name !== me)
+        .map((user: any, i: number) => {
+          return <Text key={i}>User: {user.name}</Text>;
+        })}
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   sheet: {

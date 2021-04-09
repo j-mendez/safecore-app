@@ -1,11 +1,7 @@
-import {useEffect} from 'react';
+import {useEffect, useCallback} from 'react';
 import {atom, useRecoilState} from 'recoil';
 import {appStorage} from '../utils/storage';
-
-const userState = atom({
-  key: 'userState',
-  default: '',
-});
+import {userState} from '../state/user';
 
 const userLoadedState = atom({
   key: 'userLoadedState',
@@ -16,7 +12,7 @@ const useUser = (): any => {
   const [user, setUser] = useRecoilState(userState);
   const [loaded, setLoaded] = useRecoilState(userLoadedState);
 
-  const grabUser = async () => {
+  const grabUser = useCallback(async () => {
     try {
       const uname = await appStorage.getItemAsync('UserName');
       setUser(uname);
@@ -25,7 +21,7 @@ const useUser = (): any => {
     } finally {
       setLoaded(true);
     }
-  };
+  }, [setUser, setLoaded]);
 
   useEffect(() => {
     grabUser();

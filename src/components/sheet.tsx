@@ -38,7 +38,6 @@ const SheetComponent: RefForwardingComponent<SheetHandle, SheetProps> = (
   ]);
 
   const {activeChannel, channelUsers} = props;
-  const me = appStorage.getItem('UserName');
 
   useEffect(() => {
     return () => {
@@ -53,13 +52,12 @@ const SheetComponent: RefForwardingComponent<SheetHandle, SheetProps> = (
 
   const renderContent = () => {
     if (!activeChannel) {
-      return <CreateChannel me={me} windowHeight={windowHeight} />;
+      return <CreateChannel windowHeight={windowHeight} />;
     }
     return (
       <ActiveChannel
         activeChannel={activeChannel}
         channelUsers={channelUsers}
-        me={me}
         windowHeight={windowHeight}
       />
     );
