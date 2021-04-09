@@ -1,15 +1,4 @@
 import MMKVStorage from 'react-native-mmkv-storage';
-import type {default as MMKVStorageProps} from 'react-native-mmkv-storage';
-
-class MemoryStorage {
-  data: any = {};
-  setItem = ({key, value}: {key: string; value: string}) => {
-    this.data[key] = value;
-  };
-  getItem = (key: string) => {
-    return this.data[key];
-  };
-}
 
 class MemoryStorage {
   data: any = {};
@@ -27,7 +16,7 @@ class AppStorage {
     this.memoryStorage = new MemoryStorage();
   }
   memoryStorage: any;
-  MMKV: MMKVStorageProps;
+  MMKV: any;
   setItem = async ({key, value}: {key: string; value: string}) => {
     this.memoryStorage.setItem({key, value});
     return await this.MMKV.setStringAsync(key, value);
