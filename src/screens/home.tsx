@@ -38,13 +38,15 @@ const HomeScreen: React.FC<HomeProps> = ({navigation}) => {
       <SafeAreaView style={backgroundStyle}>
         <Feed
           channels={channels}
-          onPress={async (channel: any) => {
-            const uname = await appStorage.getItem('UserName');
+          onPress={(channel: any) => {
+            const uname = appStorage.getItem('user');
+
+            console.log(uname);
             socketClient.client.send(
               JSON.stringify({
                 name: 'Connect',
                 channel,
-                user: {name: uname},
+                user: {name: appStorage.memoryStorage.data.user},
               }),
             );
             setActiveChannel(channel);

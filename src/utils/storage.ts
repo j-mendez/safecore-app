@@ -26,7 +26,7 @@ class AppStorage {
     return await this.MMKV.setStringAsync(key, value);
   };
   getItem = (key: string) => {
-    return this.memoryStorage.getItem(key);
+    return this.memoryStorage.getItem(key) || this.MMKV.getString(key);
   };
   getItemAsync = async (key: string) => {
     return await this.MMKV.getStringAsync(key);

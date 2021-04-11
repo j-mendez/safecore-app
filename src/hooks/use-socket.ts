@@ -1,6 +1,5 @@
 import {useEffect} from 'react';
 import {Platform} from 'react-native';
-
 // import type {User} from '@app/types';
 
 const socketClient = {

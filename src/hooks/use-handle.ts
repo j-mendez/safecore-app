@@ -39,6 +39,9 @@ const useHandle = (): any => {
       if (type === 'active-channel') {
         setActiveChannel(data);
       }
+      if (type === 'create-channel') {
+        setActiveChannel(data);
+      }
     },
     [setChannels, setChannelUsers, setActiveChannel],
   );
