@@ -344,6 +344,8 @@ PODS:
     - React
   - RNGestureHandler (1.10.3):
     - React-Core
+  - RNLiveAudioStream (1.1.0):
+    - React
   - RNReanimated (2.1.0):
     - DoubleConversion
     - FBLazyVector
@@ -435,6 +437,7 @@ DEPENDENCIES:
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - "RNCMaskedView (from `../node_modules/@react-native-community/masked-view`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
+  - RNLiveAudioStream (from `../node_modules/react-native-live-audio-stream`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
@@ -520,6 +523,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-community/masked-view"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
+  RNLiveAudioStream:
+    :path: "../node_modules/react-native-live-audio-stream"
   RNReanimated:
     :path: "../node_modules/react-native-reanimated"
   RNScreens:
@@ -573,6 +578,7 @@ SPEC CHECKSUMS:
   ReactCommon: cfe2b7fd20e0dbd2d1185cd7d8f99633fbc5ff05
   RNCMaskedView: 5a8ec07677aa885546a0d98da336457e2bea557f
   RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
+  RNLiveAudioStream: 8d7f218999c2910c7e58af810cc67088e26d6adb
   RNReanimated: b8c8004b43446e3c2709fe64b2b41072f87428ad
   RNScreens: e8e8dd0588b5da0ab57dcca76ab9b2d8987757e0
   Yoga: 8c8436d4171c87504c648ae23b1d81242bdf3bbf

@@ -1,9 +1,18 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Alert, Button, Text, StyleSheet} from 'react-native';
 import {Row} from '../row';
 import {userState, micState} from '../../state/user';
 import {useRecoilValue, useRecoilState} from 'recoil';
 import {ChannelWrapper} from './wrapper';
+import LiveAudioStream from 'react-native-live-audio-stream';
+
+const options = {
+  sampleRate: 32000,
+  channels: 1,
+  bitsPerSample: 16,
+  audioSource: 6,
+  bufferSize: 4096,
+};
 
 export const ActiveChannel = ({
   activeChannel,
@@ -13,8 +22,20 @@ export const ActiveChannel = ({
   const me = useRecoilValue(userState);
   const [activeMic, setActiveMic] = useRecoilState(micState);
 
+  useEffect(() => {
+    LiveAudioStream.init(options);
+
+    LiveAudioStream.on('data', (data: any) => {
+      console.log(data);
+      // base64-encoded audio data chunks
+    });
+  }, []);
+
   const toggleMic = () => {
-    setActiveMic(active => !active);
+    setActiveMic(active => {
+      LiveAudioStream[!active ? 'start' : 'stop']();
+      return !active;
+    });
   };
 
   const leaveChannel = () => {
