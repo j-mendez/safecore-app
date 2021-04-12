@@ -1,23 +1,18 @@
 import React, {useEffect} from 'react';
-import {Alert, Button, Text, StyleSheet} from 'react-native';
+import {Button, Text, StyleSheet} from 'react-native';
 import {Row} from '../row';
 import {userState, micState} from '../../state/user';
 import {useRecoilValue, useRecoilState} from 'recoil';
 import {ChannelWrapper} from './wrapper';
 import LiveAudioStream from 'react-native-live-audio-stream';
-
-const options = {
-  sampleRate: 32000,
-  channels: 1,
-  bitsPerSample: 16,
-  audioSource: 6,
-  bufferSize: 4096,
-};
+// import {socketClient} from '../../hooks/use-socket';
+import {options} from '../../config/live-audio';
 
 export const ActiveChannel = ({
   activeChannel,
   channelUsers,
   windowHeight,
+  bottomSheetModalRef,
 }: any) => {
   const me = useRecoilValue(userState);
   const [activeMic, setActiveMic] = useRecoilState(micState);
@@ -39,7 +34,7 @@ export const ActiveChannel = ({
   };
 
   const leaveChannel = () => {
-    Alert.alert('leave channel');
+    bottomSheetModalRef.current.snapTo(0);
   };
 
   return (

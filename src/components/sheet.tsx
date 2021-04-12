@@ -33,7 +33,6 @@ const SheetComponent: RefForwardingComponent<SheetHandle, SheetProps> = (
   const bottomSheetModalRef = useRef<BottomSheet>(null);
   const windowHeight = useWindowDimensions().height;
   const snapPoints = [0, '20%', windowHeight];
-
   const {activeChannel, channelUsers} = props;
 
   useEffect(() => {
@@ -49,10 +48,16 @@ const SheetComponent: RefForwardingComponent<SheetHandle, SheetProps> = (
 
   const renderContent = () => {
     if (!activeChannel) {
-      return <CreateChannel windowHeight={windowHeight} />;
+      return (
+        <CreateChannel
+          windowHeight={windowHeight}
+          bottomSheetModalRef={bottomSheetModalRef}
+        />
+      );
     }
     return (
       <ActiveChannel
+        bottomSheetModalRef={bottomSheetModalRef}
         activeChannel={activeChannel}
         channelUsers={channelUsers}
         windowHeight={windowHeight}
