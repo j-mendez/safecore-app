@@ -7,6 +7,7 @@ import {ChannelWrapper} from './wrapper';
 import LiveAudioStream from 'react-native-live-audio-stream';
 // import {socketClient} from '../../hooks/use-socket';
 import {options} from '../../config/live-audio';
+import TrackPlayer from 'react-native-track-player';
 
 export const ActiveChannel = ({
   activeChannel,
@@ -24,6 +25,25 @@ export const ActiveChannel = ({
       console.log(data);
       // base64-encoded audio data chunks
     });
+
+    const start = async () => {
+      await TrackPlayer.setupPlayer();
+
+      // Add a track to the queue
+      await TrackPlayer.add({
+        id: 'trackId',
+        url:
+          'https://ia802508.us.archive.org/5/items/testmp3testfile/mpthreetest.mp3',
+        title: 'Track Title',
+        artist: 'Track Artist',
+        artwork: null,
+      });
+
+      // Start playing it
+      await TrackPlayer.play();
+    };
+
+    start();
   }, []);
 
   const toggleMic = () => {

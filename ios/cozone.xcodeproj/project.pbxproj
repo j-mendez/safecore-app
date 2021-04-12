@@ -12,6 +12,7 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		4D6059DCC54F4B1F1CEA996F /* libPods-cozone-cozoneTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 145CF75BED4D77960E4D6502 /* libPods-cozone-cozoneTests.a */; };
+		5AEABEF82624A8BF00BD38DC /* dumm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AEABEF72624A8BF00BD38DC /* dumm.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		DCD432424188931F9C09D9EB /* libPods-cozone.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C5A16601FCCBDCC063AF26C1 /* libPods-cozone.a */; };
 /* End PBXBuildFile section */
@@ -38,6 +39,8 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = cozone/main.m; sourceTree = "<group>"; };
 		145CF75BED4D77960E4D6502 /* libPods-cozone-cozoneTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-cozone-cozoneTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		45475953D360C893651F650E /* Pods-cozone-cozoneTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cozone-cozoneTests.release.xcconfig"; path = "Target Support Files/Pods-cozone-cozoneTests/Pods-cozone-cozoneTests.release.xcconfig"; sourceTree = "<group>"; };
+		5AEABEF62624A8BF00BD38DC /* cozone-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "cozone-Bridging-Header.h"; sourceTree = "<group>"; };
+		5AEABEF72624A8BF00BD38DC /* dumm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dumm.swift; sourceTree = "<group>"; };
 		6EA6CF224691C934191160B2 /* Pods-cozone.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cozone.release.xcconfig"; path = "Target Support Files/Pods-cozone/Pods-cozone.release.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = cozone/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		81F5EBB9E7563ABF57B5E534 /* Pods-cozone-cozoneTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cozone-cozoneTests.debug.xcconfig"; path = "Target Support Files/Pods-cozone-cozoneTests/Pods-cozone-cozoneTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -91,7 +94,6 @@
 				81F5EBB9E7563ABF57B5E534 /* Pods-cozone-cozoneTests.debug.xcconfig */,
 				45475953D360C893651F650E /* Pods-cozone-cozoneTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -104,6 +106,8 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				5AEABEF72624A8BF00BD38DC /* dumm.swift */,
+				5AEABEF62624A8BF00BD38DC /* cozone-Bridging-Header.h */,
 			);
 			name = cozone;
 			sourceTree = "<group>";
@@ -208,7 +212,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						LastSwiftMigration = 1120;
+						LastSwiftMigration = 1240;
 					};
 				};
 			};
@@ -412,6 +416,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				5AEABEF82624A8BF00BD38DC /* dumm.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -431,6 +436,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 81F5EBB9E7563ABF57B5E534 /* Pods-cozone-cozoneTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -458,6 +464,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 45475953D360C893651F650E /* Pods-cozone-cozoneTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = cozoneTests/Info.plist;
@@ -498,6 +505,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = cozone;
+				SWIFT_OBJC_BRIDGING_HEADER = "cozone-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -523,6 +531,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = cozone;
+				SWIFT_OBJC_BRIDGING_HEADER = "cozone-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
