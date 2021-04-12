@@ -1,7 +1,9 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-import {userState} from '../../state/user';
-import {useRecoilValue} from 'recoil';
+import {Alert, Button, Text, StyleSheet} from 'react-native';
+import {Row} from '../row';
+import {userState, micState} from '../../state/user';
+import {useRecoilValue, useRecoilState} from 'recoil';
+import {ChannelWrapper} from './wrapper';
 
 export const ActiveChannel = ({
   activeChannel,
@@ -9,30 +11,40 @@ export const ActiveChannel = ({
   windowHeight,
 }: any) => {
   const me = useRecoilValue(userState);
+  const [activeMic, setActiveMic] = useRecoilState(micState);
+
+  const toggleMic = () => {
+    setActiveMic(active => !active);
+  };
+
+  const leaveChannel = () => {
+    Alert.alert('leave channel');
+  };
 
   return (
-    <View style={[styles.sheet, {height: windowHeight}]}>
-      <Text>{activeChannel?.name}</Text>
+    <ChannelWrapper windowHeight={windowHeight}>
+      <Text style={styles.title}>{activeChannel?.name}</Text>
       <Text>Me: {me}</Text>
       {channelUsers
         .filter((user: any) => user.name !== me)
         .map((user: any, i: number) => {
           return <Text key={i}>User: {user.name}</Text>;
         })}
-    </View>
+      <Row>
+        <Button title={'Leave Channel'} onPress={leaveChannel} />
+        <Button title={!activeMic ? 'Speak' : 'Mute'} onPress={toggleMic} />
+      </Row>
+    </ChannelWrapper>
   );
 };
 
 const styles = StyleSheet.create({
-  sheet: {
-    backgroundColor: '#fff',
-    minHeight: 450,
-    borderTopWidth: 0.5,
-    borderLeftWidth: 1,
-    borderRightWidth: 1,
-    borderColor: 'rgb(30,30,30)',
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
+  title: {
+    fontSize: 22,
+    fontWeight: '500',
+  },
+  description: {},
+  inner: {
     padding: 12,
   },
 });

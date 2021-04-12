@@ -1,21 +1,12 @@
 // import type {User} from '@app/types';
 import {useCallback} from 'react';
-import {atom, useRecoilState} from 'recoil';
-
-const channelState = atom({
-  key: 'channelState',
-  default: [],
-});
-
-const activeChannelState = atom({
-  key: 'activeChannelState',
-  default: '',
-});
-
-const channelUsersState = atom({
-  key: 'channelUsersState',
-  default: [],
-});
+import {useRecoilState} from 'recoil';
+import {
+  channelState,
+  activeChannelState,
+  channelUsersState,
+  micState,
+} from '../state/user';
 
 type Message = {
   data: any;
@@ -25,6 +16,7 @@ type Message = {
 const useHandle = (): any => {
   const [channels, setChannels] = useRecoilState(channelState);
   const [activeChannel, setActiveChannel] = useRecoilState(activeChannelState);
+  const [activeMic, setActiveMic] = useRecoilState(micState);
   const [channelUsers, setChannelUsers] = useRecoilState(channelUsersState);
 
   const handle = useCallback(
@@ -46,7 +38,17 @@ const useHandle = (): any => {
     [setChannels, setChannelUsers, setActiveChannel],
   );
 
-  return [handle, {channels, activeChannel, setActiveChannel, channelUsers}];
+  return [
+    handle,
+    {
+      activeChannel,
+      activeMic,
+      channels,
+      channelUsers,
+      setActiveChannel,
+      setActiveMic,
+    },
+  ];
 };
 
 export {useHandle};
