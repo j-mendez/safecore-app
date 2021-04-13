@@ -24,7 +24,7 @@ export const ActiveChannel = ({
       socketClient.client.send(
         JSON.stringify({
           name: 'Speak',
-          data,
+          data: data.toString(),
         }),
       );
     });
@@ -46,11 +46,12 @@ export const ActiveChannel = ({
     <ChannelWrapper windowHeight={windowHeight}>
       <Text style={styles.title}>{activeChannel?.name}</Text>
       <Text>Me: {me}</Text>
-      {channelUsers
-        .filter((user: any) => user.name !== me)
-        .map((user: any, i: number) => {
-          return <Text key={i}>User: {user.name}</Text>;
-        })}
+      {channelUsers &&
+        channelUsers
+          .filter((user: any) => user.name !== me)
+          .map((user: any, i: number) => {
+            return <Text key={i}>User: {user.name}</Text>;
+          })}
       <Row>
         <Button title={'Leave Channel'} onPress={leaveChannel} />
         <Button title={!activeMic ? 'Speak' : 'Mute'} onPress={toggleMic} />

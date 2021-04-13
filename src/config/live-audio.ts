@@ -1,7 +1,7 @@
 import type {Options} from 'react-native-live-audio-stream';
 
 export const options = {
-  sampleRate: 32000,
+  sampleRate: 48000,
   channels: 1,
   bitsPerSample: 16,
   audioSource: 6,

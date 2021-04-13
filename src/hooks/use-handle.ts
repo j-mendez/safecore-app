@@ -22,11 +22,12 @@ const useHandle = (): any => {
   const handle = useCallback(
     (message: Message) => {
       const {data, type} = message;
+
       if (type === 'channels') {
         setChannels(data);
       }
       if (type === 'channel-users') {
-        setChannelUsers(data);
+        setChannelUsers(data?.users ?? []);
       }
       if (type === 'active-channel') {
         setActiveChannel(data);

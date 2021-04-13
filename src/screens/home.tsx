@@ -49,7 +49,7 @@ const HomeScreen: React.FC<HomeProps> = ({navigation}) => {
                 user: {name: appStorage.memoryStorage.data.user},
               }),
             );
-            setActiveChannel(channel);
+            // setActiveChannel(channel);
             sheetRef?.current?.open();
           }}
         />

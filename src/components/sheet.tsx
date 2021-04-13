@@ -13,6 +13,8 @@ import {ActiveChannel, CreateChannel} from './channel';
 import {socketClient} from '../hooks/use-socket';
 import Animated from 'react-native-reanimated';
 import TrackPlayer from 'react-native-track-player';
+import {userState} from '../state/user';
+import {useRecoilValue, useRecoilState} from 'recoil';
 
 type Users = {
   name: string;
@@ -35,6 +37,7 @@ const SheetComponent: RefForwardingComponent<SheetHandle, SheetProps> = (
   const windowHeight = useWindowDimensions().height;
   const snapPoints = [0, '20%', windowHeight];
   const {activeChannel, channelUsers} = props;
+  const me = useRecoilValue(userState);
 
   useEffect(() => {
     return () => {
@@ -80,12 +83,13 @@ const SheetComponent: RefForwardingComponent<SheetHandle, SheetProps> = (
 
   const onOpenStart = useCallback(() => {
     console.log('open-start');
-
     const start = async () => {
+      const url = `http://localhost:7770/${activeChannel.name}/${me}/${activeChannel.sessionId}.wav`;
       await TrackPlayer.setupPlayer();
       await TrackPlayer.reset();
+
       await TrackPlayer.add({
-        url: 'http://localhost:7770/mp3test.mp3',
+        url,
         title: 'Track Title',
         artist: 'Track Artist',
         id: 'main',
@@ -93,9 +97,10 @@ const SheetComponent: RefForwardingComponent<SheetHandle, SheetProps> = (
 
       await TrackPlayer.play();
     };
-
-    activeChannel && start();
-  }, [activeChannel]);
+    if (activeChannel.sessionId) {
+      start();
+    }
+  }, [activeChannel, me]);
 
   const onCloseEnd = useCallback(() => {
     console.log('onCloseEnd');
