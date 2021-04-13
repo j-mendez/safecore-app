@@ -12,6 +12,7 @@ import {useWindowDimensions} from 'react-native';
 import {ActiveChannel, CreateChannel} from './channel';
 import {socketClient} from '../hooks/use-socket';
 import Animated from 'react-native-reanimated';
+import TrackPlayer from 'react-native-track-player';
 
 type Users = {
   name: string;
@@ -73,13 +74,28 @@ const SheetComponent: RefForwardingComponent<SheetHandle, SheetProps> = (
     },
   }));
 
-  const onOpenEnd = useCallback(() => {
+  const onOpenEnd = useCallback(async () => {
     console.log([contentPosition, 'open-end']);
   }, [contentPosition]);
 
   const onOpenStart = useCallback(() => {
     console.log('open-start');
-  }, []);
+
+    const start = async () => {
+      await TrackPlayer.setupPlayer();
+      await TrackPlayer.reset();
+      await TrackPlayer.add({
+        url: 'http://localhost:7770/mp3test.mp3',
+        title: 'Track Title',
+        artist: 'Track Artist',
+        id: 'main',
+      });
+
+      await TrackPlayer.play();
+    };
+
+    activeChannel && start();
+  }, [activeChannel]);
 
   const onCloseEnd = useCallback(() => {
     console.log('onCloseEnd');

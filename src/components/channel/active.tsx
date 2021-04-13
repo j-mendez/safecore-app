@@ -5,7 +5,7 @@ import {userState, micState} from '../../state/user';
 import {useRecoilValue, useRecoilState} from 'recoil';
 import {ChannelWrapper} from './wrapper';
 import LiveAudioStream from 'react-native-live-audio-stream';
-// import {socketClient} from '../../hooks/use-socket';
+import {socketClient} from '../../hooks/use-socket';
 import {options} from '../../config/live-audio';
 import TrackPlayer from 'react-native-track-player';
 
@@ -20,30 +20,14 @@ export const ActiveChannel = ({
 
   useEffect(() => {
     LiveAudioStream.init(options);
-
     LiveAudioStream.on('data', (data: any) => {
-      console.log(data);
-      // base64-encoded audio data chunks
+      socketClient.client.send(
+        JSON.stringify({
+          name: 'Speak',
+          data,
+        }),
+      );
     });
-
-    const start = async () => {
-      await TrackPlayer.setupPlayer();
-
-      // Add a track to the queue
-      await TrackPlayer.add({
-        id: 'trackId',
-        url:
-          'https://ia802508.us.archive.org/5/items/testmp3testfile/mpthreetest.mp3',
-        title: 'Track Title',
-        artist: 'Track Artist',
-        artwork: null,
-      });
-
-      // Start playing it
-      await TrackPlayer.play();
-    };
-
-    start();
   }, []);
 
   const toggleMic = () => {
@@ -55,6 +39,7 @@ export const ActiveChannel = ({
 
   const leaveChannel = () => {
     bottomSheetModalRef.current.snapTo(0);
+    TrackPlayer.pause();
   };
 
   return (

@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     borderColor: 'rgb(30,30,30)',
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
-    position: 'absolute',
+    position: 'relative',
     bottom: 0,
     left: 0,
     right: 0,
