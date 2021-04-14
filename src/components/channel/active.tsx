@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
-import {Button, Text, StyleSheet} from 'react-native';
+import {Button, Text, View, FlatList, StyleSheet} from 'react-native';
 import {Row} from '../row';
+import {Profile} from '../profile';
 import {userState, micState} from '../../state/user';
 import {useRecoilValue, useRecoilState} from 'recoil';
 import {ChannelWrapper} from './wrapper';
@@ -11,15 +12,14 @@ import TrackPlayer, {
   useTrackPlayerEvents,
   TrackPlayerEvents,
   STATE_PLAYING,
-  STATE_PAUSED,
-  STATE_BUFFERING,
 } from 'react-native-track-player';
 
-// Subscribing to the following events inside MyComponent
 const events = [
   TrackPlayerEvents.PLAYBACK_STATE,
   TrackPlayerEvents.PLAYBACK_ERROR,
 ];
+
+const keyExtractor = (item: any, index: number) => item.channel_id || index;
 
 export const ActiveChannel = ({
   activeChannel,
@@ -69,20 +69,20 @@ export const ActiveChannel = ({
 
   return (
     <ChannelWrapper windowHeight={windowHeight}>
-      <Text style={styles.title}>{activeChannel?.name}</Text>
-      {activeChannel?.description ? (
-        <Text style={styles.description}>{activeChannel.description}</Text>
-      ) : null}
-
-      <Text>Me: {me}</Text>
-      <Text selectable>Audio Channel: {channelAudioUrl}</Text>
-      <Text>The TrackPlayer is {isPlaying ? 'playing' : 'not playing'}</Text>
-      {channelUsers &&
-        channelUsers
-          .filter((user: any) => user.name !== me)
-          .map((user: any, i: number) => {
-            return <Text key={i}>User: {user.name}</Text>;
-          })}
+      <View>
+        <Text style={styles.title}>{activeChannel?.name}</Text>
+        {activeChannel?.description ? (
+          <Text style={styles.description}>{activeChannel.description}</Text>
+        ) : null}
+        <Text selectable>Audio Channel: {channelAudioUrl}</Text>
+        <Text>TrackPlayer: {isPlaying ? 'playing' : 'not playing'}</Text>
+      </View>
+      <FlatList
+        data={channelUsers || []}
+        renderItem={Profile}
+        keyExtractor={keyExtractor}
+        numColumns={3}
+      />
       <Row>
         <Button title={'Leave Channel'} onPress={leaveChannel} />
         <Button title={!activeMic ? 'Speak' : 'Mute'} onPress={toggleMic} />
