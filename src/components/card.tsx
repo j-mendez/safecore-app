@@ -19,7 +19,7 @@ type Props = {
 
 export const Card: React.FC<Props> = ({children, item, onPress, ...props}) => {
   const isDarkMode = useColorScheme() === 'dark';
-  const {name} = item;
+  const {name, description} = item;
 
   const Cell: React.FC = () => {
     return (
@@ -33,6 +33,17 @@ export const Card: React.FC<Props> = ({children, item, onPress, ...props}) => {
           ]}>
           {name}
         </Text>
+        {description ? (
+          <Text
+            style={[
+              styles.sectionDescription,
+              {
+                color: backgroundColor(isDarkMode, true),
+              },
+            ]}>
+            {description}
+          </Text>
+        ) : null}
         <Text
           style={[
             styles.innerContainer,
@@ -71,6 +82,10 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 24,
     fontWeight: '600',
+  },
+  sectionDescription: {
+    fontSize: 18,
+    fontWeight: '400',
   },
   highlight: {
     fontWeight: '700',

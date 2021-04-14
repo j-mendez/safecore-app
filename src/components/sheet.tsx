@@ -14,7 +14,7 @@ import {socketClient} from '../hooks/use-socket';
 import Animated from 'react-native-reanimated';
 import TrackPlayer from 'react-native-track-player';
 import {userState} from '../state/user';
-import {useRecoilValue, useRecoilState} from 'recoil';
+import {useRecoilValue} from 'recoil';
 
 type Users = {
   name: string;
@@ -50,6 +50,8 @@ const SheetComponent: RefForwardingComponent<SheetHandle, SheetProps> = (
     };
   }, []);
 
+  const channelAudioUrl = `http://localhost:7770/${activeChannel.name}/${me}/${activeChannel.sessionId}.mp3`;
+
   const renderContent = () => {
     if (!activeChannel) {
       return (
@@ -63,6 +65,7 @@ const SheetComponent: RefForwardingComponent<SheetHandle, SheetProps> = (
       <ActiveChannel
         bottomSheetModalRef={bottomSheetModalRef}
         activeChannel={activeChannel}
+        channelAudioUrl={channelAudioUrl}
         channelUsers={channelUsers}
         windowHeight={windowHeight}
       />
@@ -83,24 +86,25 @@ const SheetComponent: RefForwardingComponent<SheetHandle, SheetProps> = (
 
   const onOpenStart = useCallback(() => {
     console.log('open-start');
-    const start = async () => {
-      const url = `http://localhost:7770/${activeChannel.name}/${me}/${activeChannel.sessionId}.wav`;
-      await TrackPlayer.setupPlayer();
-      await TrackPlayer.reset();
+    const start = () => {
+      setTimeout(async () => {
+        await TrackPlayer.setupPlayer();
+        await TrackPlayer.reset();
+        await TrackPlayer.add({
+          url: `http://localhost:7770/audio/${activeChannel.name}/${me}/${activeChannel.sessionId}.mp3`,
+          title: 'Track Title',
+          artist: 'Track Artist',
+          id: 'main',
+        });
 
-      await TrackPlayer.add({
-        url,
-        title: 'Track Title',
-        artist: 'Track Artist',
-        id: 'main',
-      });
-
-      await TrackPlayer.play();
+        await TrackPlayer.play();
+      }, 3500);
     };
     if (activeChannel.sessionId) {
+      console.log('starting audio');
       start();
     }
-  }, [activeChannel, me]);
+  }, [activeChannel, channelAudioUrl]);
 
   const onCloseEnd = useCallback(() => {
     console.log('onCloseEnd');

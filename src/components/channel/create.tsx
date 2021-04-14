@@ -7,13 +7,14 @@ import {ChannelWrapper} from './wrapper';
 
 export const CreateChannel = ({windowHeight}: any) => {
   const [inputValue, setInputValue] = useState<string>('');
+  const [descriptionValue, setDescriptionValue] = useState<string>('');
   const me = useRecoilValue(userState);
 
   const createChannel = () => {
     socketClient.client.send(
       JSON.stringify({
         name: 'CreateChannel',
-        channel: inputValue,
+        channel: {name: inputValue, description: descriptionValue},
         user: {name: me},
       }),
     );
@@ -27,6 +28,12 @@ export const CreateChannel = ({windowHeight}: any) => {
         onChangeText={setInputValue}
         value={inputValue}
         placeholder={'Channel Name'}
+      />
+      <TextInput
+        style={styles.input}
+        onChangeText={setDescriptionValue}
+        value={descriptionValue}
+        placeholder={'Channel Description'}
       />
       <Button
         title="Create Channel"
