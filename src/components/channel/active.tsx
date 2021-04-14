@@ -69,7 +69,7 @@ export const ActiveChannel = ({
 
   return (
     <ChannelWrapper windowHeight={windowHeight}>
-      <View>
+      <View style={styles.header}>
         <Text style={styles.title}>{activeChannel?.name}</Text>
         {activeChannel?.description ? (
           <Text style={styles.description}>{activeChannel.description}</Text>
@@ -103,5 +103,8 @@ const styles = StyleSheet.create({
   },
   inner: {
     padding: 12,
+  },
+  header: {
+    marginBottom: 10,
   },
 });
