@@ -88,17 +88,19 @@ const SheetComponent: RefForwardingComponent<SheetHandle, SheetProps> = (
     console.log('open-start');
     const start = () => {
       setTimeout(async () => {
-        await TrackPlayer.setupPlayer();
+        await TrackPlayer.setupPlayer({
+          waitForBuffer: false,
+        });
         await TrackPlayer.reset();
         await TrackPlayer.add({
-          url: `http://localhost:7770/audio/${activeChannel.name}/${me}/${activeChannel.sessionId}.mp3`,
-          title: 'Track Title',
-          artist: 'Track Artist',
-          id: 'main',
+          url: `${channelAudioUrl}`.replace('.mp3', '.m3u8'),
+          title: '',
+          artist: '',
+          id: '',
         });
 
         await TrackPlayer.play();
-      }, 3500);
+      }, 8500);
     };
     if (activeChannel.sessionId) {
       console.log('starting audio');

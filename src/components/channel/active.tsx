@@ -37,6 +37,13 @@ export const ActiveChannel = ({
       console.warn('An error occured while playing the current track.');
     }
     if (event.type === TrackPlayerEvents.PLAYBACK_STATE) {
+      await TrackPlayer.add({
+        url: `${channelAudioUrl}`.replace('.mp3', '.m3u8'),
+        title: '',
+        artist: '',
+        id: '',
+      });
+      await TrackPlayer.play();
       setPlayerState(event.state);
     }
   });

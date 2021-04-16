@@ -10,6 +10,7 @@ import {backgroundColor} from '../styles/background';
 
 type CardItemProps = {
   name: string;
+  description?: string;
 };
 
 type Props = {

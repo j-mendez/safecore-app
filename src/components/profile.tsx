@@ -1,9 +1,12 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 
-type Props = {
+type ItemProps = {
   name: string;
   speaking?: boolean;
+};
+type Props = {
+  item: ItemProps;
 };
 
 export const Profile: React.FC<Props> = ({item}) => {
