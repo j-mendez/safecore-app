@@ -22,15 +22,6 @@ This is a cross platform voice app that communicates with murmur for low latency
 
 ## Features
 
-1. channels
-2. encrypted front-back
-3. low bandwidth
-
-### Progress
-
-progress will be posted here using gifs.
-
-![Progress](https://i.gyazo.com/3dd272429e84eb91b27548ed3a28c55d.gif)
-
-
+1. low bandwith communication
+2. encryption front-back
 

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {Button, Text, View, FlatList, StyleSheet} from 'react-native';
 import {Row} from '../row';
 import {Profile} from '../profile';
@@ -11,7 +11,6 @@ import {options} from '../../config/live-audio';
 import TrackPlayer, {
   useTrackPlayerEvents,
   TrackPlayerEvents,
-  STATE_PLAYING,
 } from 'react-native-track-player';
 
 const events = [
@@ -23,28 +22,28 @@ const keyExtractor = (item: any, index: number) => item.channel_id || index;
 
 export const ActiveChannel = ({
   activeChannel,
-  channelUsers,
+  channelUsers = [],
   windowHeight,
   bottomSheetModalRef,
   channelAudioUrl,
 }: any) => {
   const me = useRecoilValue(userState);
   const [activeMic, setActiveMic] = useRecoilState(micState);
-  const [playerState, setPlayerState] = useState(null);
 
   useTrackPlayerEvents(events, async event => {
     if (event.type === TrackPlayerEvents.PLAYBACK_ERROR) {
       console.warn('An error occured while playing the current track.');
     }
     if (event.type === TrackPlayerEvents.PLAYBACK_STATE) {
-      await TrackPlayer.add({
-        url: `${channelAudioUrl}`.replace('.mp3', '.m3u8'),
-        title: '',
-        artist: '',
-        id: '',
-      });
-      await TrackPlayer.play();
-      setPlayerState(event.state);
+      if (activeChannel?.name) {
+        await TrackPlayer.add({
+          url: `${channelAudioUrl}`.replace('.mp3', '.m3u8'),
+          title: '',
+          artist: '',
+          id: '',
+        });
+        await TrackPlayer.play();
+      }
     }
   });
 
@@ -72,8 +71,6 @@ export const ActiveChannel = ({
     TrackPlayer.pause();
   };
 
-  const isPlaying = playerState === STATE_PLAYING;
-
   return (
     <ChannelWrapper windowHeight={windowHeight}>
       <View style={styles.header}>
@@ -81,12 +78,18 @@ export const ActiveChannel = ({
         {activeChannel?.description ? (
           <Text style={styles.description}>{activeChannel.description}</Text>
         ) : null}
-        <Text selectable>Audio Channel: {channelAudioUrl}</Text>
-        <Text>TrackPlayer: {isPlaying ? 'playing' : 'not playing'}</Text>
       </View>
       <FlatList
-        data={channelUsers || []}
-        renderItem={Profile}
+        data={channelUsers}
+        renderItem={props => (
+          <Profile
+            item={{
+              ...props.item,
+              speaking:
+                props.item.name === me ? activeMic : props.item.speaking,
+            }}
+          />
+        )}
         keyExtractor={keyExtractor}
         numColumns={3}
       />
