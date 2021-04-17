@@ -23,7 +23,11 @@ const HomeScreen: React.FC<HomeProps> = ({navigation}) => {
     navigation.setOptions({
       headerRight: () => (
         <Button
-          onPress={() => navigation.navigate('Profile', {name: 'Me'})}
+          onPress={() =>
+            navigation.navigate('Profile', {
+              name: appStorage.memoryStorage.data.user,
+            })
+          }
           title="Profile"
           accessibilityLabel="navigate to My profile"
         />
@@ -41,12 +45,11 @@ const HomeScreen: React.FC<HomeProps> = ({navigation}) => {
           onPress={(channel: any) => {
             const uname = appStorage.getItem('user');
 
-            console.log(uname);
             socketClient.client.send(
               JSON.stringify({
                 name: 'Connect',
                 channel,
-                user: {name: appStorage.memoryStorage.data.user},
+                user: {name: appStorage.memoryStorage.data.user || uname},
               }),
             );
             sheetRef?.current?.open();
@@ -54,7 +57,7 @@ const HomeScreen: React.FC<HomeProps> = ({navigation}) => {
         />
         <Button
           title="Create Room"
-          accessibilityLabel="Create a Room"
+          accessibilityLabel="Create a new Room"
           onPress={() => sheetRef?.current?.open()}
         />
       </SafeAreaView>

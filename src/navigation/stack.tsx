@@ -25,11 +25,17 @@ export const MyStack: React.FC = () => {
               component={HomeScreen}
               options={{
                 title: '',
-                headerLeft: () => <Button title="logout" onPress={logout} />,
                 gestureEnabled: false,
               }}
             />
-            <Stack.Screen name="Profile" component={ProfileScreen} />
+            <Stack.Screen
+              name="Profile"
+              component={ProfileScreen}
+              options={{
+                title: '',
+                headerRight: () => <Button title="logout" onPress={logout} />,
+              }}
+            />
           </Fragment>
         ) : (
           <Stack.Screen name="Login" component={LoginScreen} />

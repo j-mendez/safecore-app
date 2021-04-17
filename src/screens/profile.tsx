@@ -9,7 +9,6 @@ import {
   Button,
 } from 'react-native';
 
-import {Header} from 'react-native/Libraries/NewAppScreen';
 import {RouteProp} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import type {RootStackParamList} from '../types/navigation';
@@ -40,7 +39,6 @@ const ProfileScreen: React.FC<Props> = ({navigation, route}) => {
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         style={backgroundStyle}>
-        <Header />
         <View
           style={{
             backgroundColor: backgroundColor(isDarkMode),
@@ -48,7 +46,7 @@ const ProfileScreen: React.FC<Props> = ({navigation, route}) => {
           <Text>This is {route.params.name}'s profile</Text>
           <Button
             title="Go Back"
-            accessibilityLabel="navigate to Jane's profiles"
+            accessibilityLabel="navigate back home"
             onPress={() => navigation.pop()}
           />
         </View>

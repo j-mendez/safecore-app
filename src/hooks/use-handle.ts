@@ -1,4 +1,3 @@
-// import type {User} from '@app/types';
 import {useCallback} from 'react';
 import {useRecoilState} from 'recoil';
 import {
@@ -23,17 +22,19 @@ const useHandle = (): any => {
     (message: Message) => {
       const {data, type} = message;
 
-      if (type === 'channels') {
-        setChannels(data);
-      }
-      if (type === 'channel-users') {
-        setChannelUsers(data?.users ?? []);
-      }
-      if (type === 'active-channel') {
-        setActiveChannel(data);
-      }
-      if (type === 'create-channel') {
-        setActiveChannel(data);
+      switch (type) {
+        case 'channels':
+          setChannels(data);
+          break;
+        case 'channel-users':
+          setChannelUsers(data?.users ?? []);
+          break;
+        case 'active-channel':
+        case 'create-channel':
+          setActiveChannel(data);
+          break;
+        default:
+          break;
       }
     },
     [setChannels, setChannelUsers, setActiveChannel],
