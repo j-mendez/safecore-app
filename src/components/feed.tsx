@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, FlatList, StyleSheet, StatusBar} from 'react-native';
 import {Card} from './card';
+import {Empty} from './empty';
 
 type ItemCellProps = {
   title?: string;
@@ -39,6 +40,7 @@ export const Feed: React.FC<Props> = ({
           }
         />
       )}
+      ListEmptyComponent={Empty}
       keyExtractor={keyExtractor}
       ItemSeparatorComponent={({highlighted}) => (
         <View style={[styles.separator, highlighted && styles.highlight]} />

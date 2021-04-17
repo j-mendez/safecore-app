@@ -31,7 +31,7 @@ const HomeScreen: React.FC<HomeProps> = ({navigation}) => {
     });
   }, [navigation]);
 
-  const {channels, activeChannel, channelUsers, setActiveChannel} = state;
+  const {channels, activeChannel, channelUsers} = state;
 
   return (
     <Fragment>
@@ -49,7 +49,6 @@ const HomeScreen: React.FC<HomeProps> = ({navigation}) => {
                 user: {name: appStorage.memoryStorage.data.user},
               }),
             );
-            // setActiveChannel(channel);
             sheetRef?.current?.open();
           }}
         />
